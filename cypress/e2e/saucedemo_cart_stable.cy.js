@@ -1,4 +1,4 @@
-describe('Flujo de SauceDemo con tests separados', () => 
+describe('Flujo de SauceDemo con tests separados', () => {
 
   // ---------- LOGIN ANTES DE CADA TEST ----------
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('Flujo de SauceDemo con tests separados', () =>
     cy.get('.inventory_list').should('be.visible')
   })
 
-  it('Agregar productos al carrito', () => {
+  it("Agregar productos al carrito", () => {
     cy.get('#add-to-cart-sauce-labs-bolt-t-shirt').click()
     cy.get('#add-to-cart-sauce-labs-backpack').click()
     cy.get('.shopping_cart_badge').should('contain', '2')
