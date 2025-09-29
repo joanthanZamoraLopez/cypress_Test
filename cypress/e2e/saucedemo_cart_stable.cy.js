@@ -1,3 +1,4 @@
+import "cypress-xpath";
 describe("Flujo de SauceDemo con tests separados", () => {
 
   // ---------- LOGIN ANTES DE CADA TEST ----------
@@ -11,12 +12,20 @@ describe("Flujo de SauceDemo con tests separados", () => {
 
   })
 
-  it("Agregar productos al carrito", () => {
-    cy.get("#add-to-cart-sauce-labs-bolt-t-shirt").click()
-    cy.get("#add-to-cart-sauce-labs-backpack").click()
-    cy.get("#add-to-cart-sauce-labs-onesie").click()
-    cy.get(".shopping_cart_badge").should("contain", "3")
-  })
+it("Agregar productos al carrito con XPath", () => {
+  // Usando XPath para seleccionar el botón "Add to cart" del Bolt T-Shirt
+  cy.xpath("//button[@id='add-to-cart-sauce-labs-bolt-t-shirt']").click()
+
+  // Usando XPath para Backpack
+  cy.xpath("//button[@id='add-to-cart-sauce-labs-backpack']").click()
+
+  // Usando XPath para Onesie
+  cy.xpath("//button[@id='add-to-cart-sauce-labs-onesie']").click()
+
+  // Assert de la cantidad en el carrito
+  cy.get(".shopping_cart_badge").should("contain", "3")
+})
+
 
   it("Verificar carrito", () => {
     // 🔑 IMPORTANTE: volvemos a agregar productos, porque el carrito se limpia entre tests

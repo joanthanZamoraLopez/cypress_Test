@@ -1,18 +1,20 @@
+import "cypress-plugin-tab";
+
+
 describe('Beauty salon Gallery Test', () => {
-  beforeEach(() =>{
+  beforeEach(() => {
     cy.visit("https://beautysalonexample.netlify.app/")
   })
-  it("Login",() =>{
+
+  it("Login", () => {
     cy.get("h1").should("be.visible")
     cy.wait(1500)
     cy.get("h4").scrollIntoView()
     cy.wait(1500)
     cy.scrollTo("top")
-   
   })
-  it("Galeria",() => {
 
-    
+  it("Galeria", () => {
     cy.contains('a', 'Galeria').click()
     cy.get('.galeria', { timeout: 5000 }).should('be.visible')
     cy.get('.galeria img').each(($img) => {
@@ -26,19 +28,22 @@ describe('Beauty salon Gallery Test', () => {
 
       // Verifica que el modal ya no existe antes de pasar a la siguiente imagen
       cy.get('.cerrar').should('not.be.visible')
-       })
+    })
   })
 
-
-  it.only("Formulario llenado",() => { 
+  it("Formulario llenado con tab", () => { 
     cy.contains("a", "Contacto").click()
     cy.get("h2").should("be.visible")
 
-    cy.get('input[name="nombre"]').type("Jonathan Lopez")
-    cy.get('input[name="email"]').type("juan@example.com")
-    cy.get('input[name="asunto"]').type("agendar una cita") 
-    cy.get('textarea[name="mensaje"]').type("Hola, me interesa el servicio de belleza.")
+    cy.get('input[name="nombre"]')
+      .type("Jonathan Lopez")
+      .tab() // Salta al email
+      .type("juan@example.com")
+      .tab() // Salta al asunto
+      .type("Agendar una cita")
+      .tab() // Salta al mensaje
+      .type("Hola, me interesa el servicio de belleza.")
+
     cy.get(".btn-enviar").click()
   })
-
 })
